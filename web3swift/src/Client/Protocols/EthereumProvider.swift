@@ -173,11 +173,7 @@ extension EthereumRPCProtocol {
 
     public func eth_sendRawTransaction(_ transaction: EthereumTransaction, withAccount account: EthereumAccountProtocol) async throws -> String {
         do {
-            // Inject pending nonce
-            let nonce = try await eth_getTransactionCount(address: account.address, block: .Pending)
-
             var transaction = transaction
-            transaction.nonce = nonce
 
             if transaction.chainId == nil {
                 transaction.chainId = network.intValue
